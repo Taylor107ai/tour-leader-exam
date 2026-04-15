@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>領隊領牌考試 溫習指南</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1a1a;min-height:100vh;padding-bottom:3rem}
+.top-bar{background:#1a1a1a;color:#fff;padding:14px 20px;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.top-bar h1{font-size:15px;font-weight:500;letter-spacing:0.3px}
+.top-bar span{font-size:11px;color:#888}
+.body{max-width:700px;margin:0 auto;padding:16px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.stat{background:#fff;border-radius:10px;padding:12px 8px;text-align:center;border:1px solid #e8e6e0}
+.stat-n{font-size:20px;font-weight:600;color:#1a1a1a}
+.stat-l{font-size:10px;color:#888;margin-top:2px}
+.search-wrap{position:relative;margin-bottom:12px}
+.search-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#aaa}
+input[type=text]{width:100%;padding:10px 12px 10px 38px;border-radius:10px;border:1px solid #e0ded8;background:#fff;font-size:14px;color:#1a1a1a;outline:none}
+input[type=text]:focus{border-color:#888}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tab{font-size:12px;padding:6px 12px;border-radius:20px;border:1px solid #ddd;background:#fff;cursor:pointer;color:#555;transition:all 0.15s;white-space:nowrap}
+.tab.active{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.freq-badge{font-size:10px;padding:2px 7px;border-radius:10px;font-weight:500;margin-left:5px}
+.freq-high{background:#fee2e2;color:#991b1b}
+.freq-med{background:#fef3c7;color:#92400e}
+.freq-low{background:#dcfce7;color:#166534}
+.card{background:#fff;border:1px solid #e8e6e0;border-radius:12px;margin-bottom:10px;overflow:hidden}
+.card-header{padding:14px 16px;cursor:pointer;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;-webkit-tap-highlight-color:transparent}
+.card-header:active{background:#f9f8f5}
+.q-meta{display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin-bottom:5px}
+.q-type{font-size:10px;color:#aaa;background:#f5f4f0;padding:2px 6px;border-radius:5px}
+.cat-badge{font-size:10px;padding:2px 7px;border-radius:8px}
+.cat-0{background:#dbeafe;color:#1e40af}
+.cat-1{background:#ede9fe;color:#5b21b6}
+.cat-2{background:#d1fae5;color:#065f46}
+.cat-3{background:#fef3c7;color:#92400e}
+.cat-4{background:#fee2e2;color:#991b1b}
+.cat-5{background:#ecfdf5;color:#047857}
+.cat-6{background:#fce7f3;color:#9d174d}
+.cat-7{background:#f3f4f6;color:#374151}
+.q-text{font-size:14px;font-weight:500;color:#1a1a1a;line-height:1.5}
+.chevron{font-size:11px;color:#bbb;flex-shrink:0;margin-top:3px;transition:transform 0.2s;display:inline-block}
+.chevron.open{transform:rotate(90deg)}
+.card-body{display:none;padding:0 16px 16px;border-top:1px solid #f0ede6}
+.card-body.open{display:block}
+.ans-label{font-size:10px;font-weight:600;color:#aaa;letter-spacing:0.8px;margin:12px 0 8px;text-transform:uppercase}
+.ans-item{display:flex;gap:8px;margin-bottom:7px;align-items:flex-start}
+.ans-dot{width:20px;height:20px;border-radius:50%;background:#f5f4f0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#888;flex-shrink:0;margin-top:1px}
+.ans-text{font-size:13px;color:#333;line-height:1.65}
+.tip{background:#fffbeb;border-left:3px solid #f59e0b;border-radius:0 8px 8px 0;padding:8px 12px;margin-top:10px;font-size:12px;color:#78350f;line-height:1.5}
+.empty{text-align:center;padding:3rem;color:#aaa;font-size:14px}
+.section-divider{font-size:11px;color:#aaa;padding:8px 4px 4px;letter-spacing:0.5px}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <h1>領隊領牌考試 溫習指南</h1>
+  <span>歷屆題目整合</span>
+</div>
+
+<div class="body">
+  <div class="stats">
+    <div class="stat"><div class="stat-n">60+</div><div class="stat-l">整合題目</div></div>
+    <div class="stat"><div class="stat-n">8</div><div class="stat-l">分類</div></div>
+    <div class="stat"><div class="stat-n" style="font-size:13px;padding-top:3px">必背</div><div class="stat-l">危機處理八項</div></div>
+    <div class="stat"><div class="stat-n" style="font-size:13px;padding-top:3px">MC+問答</div><div class="stat-l">題型</div></div>
+  </div>
+
+  <div class="search-wrap">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="searchInput" placeholder="搜尋題目關鍵字..." oninput="filterCards()">
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="setTab(this,'all')">全部</button>
+    <button class="tab" onclick="setTab(this,'crisis')">危機處理</button>
+    <button class="tab" onclick="setTab(this,'service')">增值服務</button>
+    <button class="tab" onclick="setTab(this,'legal')">法例法規</button>
+    <button class="tab" onclick="setTab(this,'activities')">戶外活動</button>
+    <button class="tab" onclick="setTab(this,'hotel')">酒店住宿</button>
+    <button class="tab" onclick="setTab(this,'leader')">領隊角色</button>
+    <button class="tab" onclick="setTab(this,'study')">遊學團</button>
+    <button class="tab" onclick="setTab(this,'transport')">交通出行</button>
+  </div>
+
+  <div id="cardList"></div>
+</div>
+
+<script>
+const CATS=['法例法規','危機處理','增值服務','領隊角色','戶外活動','酒店住宿','遊學團','交通出行'];
+const CAT_KEYS=['legal','crisis','service','leader','activities','hotel','study','transport'];
+
+const data=[
+{cat:'legal',freq:'high',q:'【必考MC】國安法涵蓋範圍及立法目的',type:'MC',
+ans:['《香港國家安全法》涵蓋：分裂國家、顛覆國家政權、恐怖活動、勾結外國或境外勢力危害國家安全','不包括個人日常言論自由（但煽動性言論除外）','領隊職責：若旅途中有涉及國安法的情況，應向當局通報，不應協助或縱容'],
+tip:'考法：通常考哪項「不屬於」國安法範疇，要識揀錯誤選項'},
+{cat:'legal',freq:'high',q:'【必考MC】防止賄賂條例 — 利益範圍及抗辯理由',type:'MC',
+ans:['「利益」定義：金錢、禮品、服務、貸款、職位等有價值的事物','不包括「款待」：即當場享用的食物或飲品（例如一頓飯、一杯酒）','抗辯理由：須得到主人（持牌旅行代理商）的許可或授權','收受佣金必須向旅行社申報及獲批准'],
+tip:'常考：「以下哪項不屬於利益？」答案通常是當場享用的飲食'},
+{cat:'legal',freq:'high',q:'旅遊業賠償基金 — 賠償金額、印花稅、不賠原因',type:'問答',
+ans:['特惠賠償：因旅行代理商問題導致外遊旅客死亡或受傷，最高賠償 HK$30萬（以報銷實際開支為準）','電子印花稅：每張外遊旅行服務合約收取合約價格的 0.1%','印花顯示內容：旅行社名稱、旅客姓名、行程目的地、出發日期、合約金額、印花編號','三個不賠原因：① 旅行社仍在正常營業 ② 旅客已從其他途徑獲賠 ③ 索償超出法定時限'],
+tip:'金額 $30萬 及印花稅 0.1% 必須背熟，MC 常考'},
+{cat:'legal',freq:'high',q:'個人資料私隱條例 — 四至六項原則（T/F 及問答均有考）',type:'問答',
+ans:['① 收集原則：資料收集須有合法目的，只收集必要資料','② 準確原則：資料須保持準確及最新','③ 使用原則：資料只可用於收集時的原定目的','④ 保安原則：須採取合理措施防止資料未經授權使用或洩露','⑤ 公開原則：須告知當事人資料的用途及查閱權','⑥ 查閱及改正原則：當事人有權查閱及更正個人資料'],
+tip:'是非題常考原則定義，問答常考「列出三至四項原則」'},
+{cat:'legal',freq:'med',q:'旅遊業條例實施日期（MC/T/F）',type:'MC',
+ans:['《旅遊業條例》（第 634 章）：於 2021 年 11 月 1 日正式生效','旅遊業監管局（旅監局）由該日起負責規管旅行社及領隊/導遊的發牌事宜','《持牌人指令》：持牌旅行代理商向領隊發出的服務指引，具法律約束力'],
+tip:'「2021年11月1日」是常考日期'},
+{cat:'legal',freq:'high',q:'外遊警示級別 — 三色定義（填空/問答）',type:'問答',
+ans:['🔴 紅色：有明顯威脅，應調整行程，如非必要避免前赴','🟡 黃色：有威脅跡象，留意局勢，提高警惕','⚫ 黑色：有嚴重威脅，不應前赴該地'],
+tip:'黑>紅>黃嚴重程度順序要記清楚，填空題必考'},
+{cat:'legal',freq:'low',q:'持牌人指令 — 定義、對象及服務協議內容',type:'T/F+問答',
+ans:['定義：持牌旅行代理商就其外遊旅行服務向受僱領隊發出的書面指令','對象：持牌旅行代理商（旅行社）→ 受委任領隊','服務協議內容：職責說明、行程細節、緊急聯絡安排、費用處理、小費安排、離團規定','離團費：領隊私自帶團友離開行程或自費活動，須向旅行社匯報']},
+
+{cat:'crisis',freq:'high',q:'【必考】八項處理危機及突發事故的考慮因素',type:'問答',
+ans:['① 保障人命安全（首要）','② 評估事件的嚴重性及影響範圍','③ 聯絡相關緊急服務（警察、救護、醫院）','④ 通知旅行社及持牌代理商','⑤ 妥善安置及照顧團友','⑥ 保存相關文件及記錄（收據、醫療報告等）','⑦ 安排後備方案，盡量繼續行程','⑧ 跟進及匯報事件結果'],
+tip:'八項必須全部背熟！常要求「列出全部八項」或「選出三項並解釋為何重要」'},
+{cat:'crisis',freq:'high',q:'七項危機處理技巧及程序（應用題）',type:'問答',
+ans:['① 保持冷靜，穩定現場秩序','② 迅速評估情況，判斷危險程度','③ 即時通報：警察/救護/旅行社','④ 安置及照顧傷者或受影響團友','⑤ 向其他團友解釋及安撫情緒','⑥ 執行後備方案（改變行程/更換酒店等）','⑦ 詳細記錄事件，收集文件證明']},
+{cat:'crisis',freq:'high',q:'處理投訴的原則（四項）及技巧（三項）',type:'問答',
+ans:['四項投訴處理原則：① 聆聽 ② 同理 ③ 道歉（代表旅行社）④ 行動','三項處理技巧：① 保持專業冷靜，不與客人爭論 ② 提出具體解決方案 ③ 跟進確認客人是否滿意','處理步驟：先聆聽完整投訴 → 表達同理心 → 核實事實 → 提出解決方案 → 跟進'],
+tip:'「投訴四原則：聆聽→同理→道歉→行動」是送分題'},
+{cat:'crisis',freq:'high',q:'車輛中途拋錨的危機處理（四項解決方法）',type:'案例問答',
+ans:['① 立即疏散旅客到安全地點，遠離車道','② 通知旅行社及當地緊急聯絡人安排替換車輛','③ 向團友解釋情況，安撫情緒，說明預計等候時間','④ 若延誤影響行程，調整後續安排並作出適當補償']},
+{cat:'crisis',freq:'high',q:'恐怖襲擊的三個處理方法',type:'問答',
+ans:['① 立即帶領團友疏散至安全地點，遠離事發地點','② 通報警方及旅行社，等候官方指示，切勿自行判斷','③ 清點人數，照顧受傷或受驚嚇的團友，提供心理支援']},
+{cat:'crisis',freq:'med',q:'團友在旅途中意外受傷的四項處理方法',type:'案例問答',
+ans:['① 立即評估傷勢，若嚴重即召救護車','② 陪同或安排專人陪同傷者就醫','③ 通知旅行社，協助傷者聯絡家屬','④ 協助傷者整理保險索償文件（醫療報告、收據）']},
+{cat:'crisis',freq:'med',q:'團友在市集/景點走失的四項處理方法',type:'案例問答',
+ans:['① 立即清點人數，確認走失人數及最後見到的地點','② 在原地等候或派人返回最後見面地點尋找','③ 廣播或通知景點/市集工作人員協助尋找','④ 聯絡警方，通報走失者特徵，並通知旅行社']},
+{cat:'crisis',freq:'med',q:'兩名團友爭執衝突的四項處理方法',type:'案例問答',
+ans:['① 立即介入，保持冷靜，請雙方暫時分開冷靜','② 分別聆聽雙方的意見，瞭解起因','③ 保持中立，不偏袒任何一方，嘗試調解','④ 若情況嚴重影響其他團友，考慮調整座位或房間安排']},
+{cat:'crisis',freq:'med',q:'酒店無房（被通知海景房維修）的解決方法及爭取補償',type:'案例問答',
+ans:['解決方法：① 要求酒店提供同等或更好的替代房間 ② 若同一酒店無法解決，聯絡旅行社另覓同級酒店 ③ 向客人解釋及道歉，說明安排','爭取補償：① 要求酒店提供免費早餐或餐飲優惠 ② 要求房間升級（免費）③ 要求退還差價或現金補償']},
+{cat:'crisis',freq:'med',q:'飛機上遺失護照的三個處理方法',type:'問答',
+ans:['① 立即通知機組人員協助廣播尋找','② 抵達目的地後向航空公司失物認領處登記','③ 聯絡香港領事館或入境處，申請緊急旅行文件']},
+{cat:'crisis',freq:'med',q:'旅行期間黑色颱風/暴風雨警告發出的處理',type:'問答',
+ans:['① 立即通知全體團友留在酒店/安全室內，取消所有戶外活動','② 密切關注天文台/當地氣象預報，等候警報解除','③ 通知旅行社，評估是否需要更改行程或提早/延遲回港','④ 若困在戶外，尋找就近堅固建築物避風']},
+{cat:'crisis',freq:'low',q:'15分鐘後飛機起飛但團友仍未到達機場的四個解決方法',type:'案例問答',
+ans:['① 嘗試多次致電該團友，確認其位置及預計到達時間','② 通知航空公司地勤，要求延遲登機（若情況許可）','③ 通知旅行社，取得旅行社指示','④ 若最終未能趕上，協助該團友安排下一班機，並確保其他團友準時登機']},
+
+{cat:'service',freq:'high',q:'提供增值服務對旅行代理商的好處（三至四項）',type:'問答',
+ans:['① 提升客戶滿意度，增加回頭率及口碑推薦','② 增加額外收入（自費活動、升級安排等）','③ 與競爭對手區別，建立品牌差異化','④ 加強旅行社與客人的長期關係，提高客戶忠誠度']},
+{cat:'service',freq:'high',q:'增值服務的技巧（四項）及如何令團友滿意',type:'問答',
+ans:['① 了解團友需求：出發前收集資料（飲食習慣、特殊需要、喜好）','② 主動建議：適時推介合適的自費活動或升級選項','③ 個人化服務：針對不同團友（長者、新婚、小孩）提供針對性建議','④ 跟進服務：活動後詢問團友感受，確保滿意'],
+tip:'「了解需要→主動建議→個人化→跟進」四步曲'},
+{cat:'service',freq:'high',q:'有小孩、長者、新婚夫婦的旅行團 — 增值服務建議',type:'案例問答',
+ans:['長者：① 安排無障礙房間（低層、近電梯）② 提供輪椅或協助行動 ③ 推介輕鬆路線或文化導賞','小孩：① 安排有兒童設施的酒店 ② 推介親子活動 ③ 安排兒童餐','新婚夫婦：① 要求酒店安排蜜月佈置 ② 推介浪漫晚餐或日落遊船 ③ 安排驚喜（鮮花、蛋糕）']},
+{cat:'service',freq:'high',q:'在沙漠/古城/異國文化景點提供增值服務的四項建議',type:'案例問答',
+ans:['① 安排專業本地導賞員講解歷史文化','② 推介特色文化體驗（傳統服裝試穿、本地工藝體驗）','③ 推薦正宗本地餐廳品嚐當地美食','④ 提供相關書籍、紀念品或影片資源，加深了解']},
+{cat:'service',freq:'med',q:'在餐廳的四項關顧及對餐廳的四項監察',type:'問答',
+ans:['關顧團友（四項）：① 確認座位舒適，照顧特殊飲食需要 ② 介紹菜式，翻譯菜單 ③ 協助有需要的長者或小孩 ④ 確保食物符合宗教或飲食習慣要求','監察餐廳（四項）：① 檢查食物衛生及環境清潔 ② 確認菜式與合約相符 ③ 留意食物溫度及新鮮度 ④ 若有問題即時向餐廳經理反映並記錄']},
+{cat:'service',freq:'med',q:'旅遊保險保障項目、拒賠原因及索償文件',type:'問答',
+ans:['保障項目（例子）：① 醫療費用 ② 人身意外（死亡/殘廢）③ 行程取消/縮短 ④ 行李遺失/損毀','三個拒賠原因：① 預先存在的疾病 ② 酒醉或藥物影響下的意外 ③ 未有遵從醫療建議','索償文件：① 醫療報告及收據 ② 警方報案紙（如失竊）③ 航空公司遺失行李證明']},
+
+{cat:'leader',freq:'high',q:'稱職領隊的四項性格特質（附例子）',type:'問答',
+ans:['① 耐心：面對突發情況或難纏客人，保持冷靜耐心處理（例：客人不滿行程，耐心解釋）','② 責任心：時刻關注團友安全，確保行程順利（例：出發前核實所有人到齊）','③ 靈活應變：遇突發事故能迅速調整方案（例：酒店無房即時另覓替代）','④ 溝通能力：以清晰語言傳達資訊，促進文化交流（例：以當地語文協助溝通）'],
+tip:'每個特質必須附例子說明，否則扣分'},
+{cat:'leader',freq:'high',q:'領隊角色四項 — 帶領銀髮族/外籍旅客時如何體貼',type:'問答',
+ans:['① 組織者：安排行程、清點人數、協調交通住宿','② 解說員：介紹景點文化歷史，解答疑問','③ 照顧者：關注團友健康及特殊需要（銀髮族體力、飲食）','④ 溝通橋樑：協助語言不通的團友與當地人溝通，解決文化差異']},
+{cat:'leader',freq:'high',q:'領隊出團前需準備的物資及用途',type:'問答',
+ans:['① 旅行社指令文件及行程表 — 確認行程及緊急聯絡','② 所有團友名單及護照資料 — 清點人數及辦理手續','③ 急救包 — 應對輕微傷患','④ 緊急聯絡卡及當地緊急號碼 — 突發事故即時使用','⑤ 充足現金及旅費 — 應付突發開支']},
+{cat:'leader',freq:'med',q:'旅行代理商與領隊互相依存關係',type:'問答',
+ans:['旅行社依賴領隊：① 領隊是旅行社在旅途中的代表 ② 領隊的服務質素直接影響旅行社聲譽','領隊依賴旅行社：① 旅行社提供行程安排及資源 ② 旅行社提供緊急支援及後勤','互相依存：雙方共同保障旅客權益，缺一不可']},
+{cat:'leader',freq:'med',q:'如何協助語言障礙及文化差異（三至四項）',type:'問答',
+ans:['① 事前準備常用當地語言短句卡片或翻譯 app','② 聘用或聯絡當地中英文導遊/翻譯協助','③ 提前向團友介紹當地文化禁忌及習俗','④ 以肢體語言或圖示輔助溝通']},
+{cat:'leader',freq:'med',q:'旅行團隊管理金科玉律（八項要點）',type:'問答',
+ans:['① 出發前點名，確認人數','② 訂立集合時間及地點，準時出發','③ 清晰傳達行程安排及注意事項','④ 保持與團友的良好溝通','⑤ 關注特殊需要團友（長者、小孩、病患）','⑥ 維持紀律，處理違規行為','⑦ 記錄重要事項及突發情況','⑧ 行程後收集反饋，改善服務']},
+{cat:'leader',freq:'med',q:'發放鎖匙及分房的考慮因素（四項）',type:'問答',
+ans:['① 按需要分配：長者/行動不便者安排低層或近電梯房間','② 配對安排：新婚夫婦、家庭、同性朋友按關係分配','③ 私隱保障：不在公眾地方大聲報出房號，個別通知','④ 確認事項：向團友說明早餐時間、緊急疏散路線、貴重物品保管、房間設施']},
+
+{cat:'activities',freq:'high',q:'生態導賞的四項態度及導賞守則',type:'問答',
+ans:['四項態度：① 尊重自然，不破壞生態環境 ② 保持安靜，不驚擾野生動物 ③ 負責任的旅遊行為，不留垃圾 ④ 教育性態度，主動學習及分享生態知識','導賞守則：① 禁止採摘植物或餵飼動物 ② 保持原有路線，不踐踏植被 ③ 攝影時勿使用閃光燈 ④ 遵守景區規定'],
+tip:'生態導賞幾乎每次必考，四項態度要配合例子'},
+{cat:'activities',freq:'high',q:'滑雪活動的四項安全提醒',type:'問答',
+ans:['① 必須穿戴適合的護具（頭盔、護手、護膝）及保暖衣物','② 按個人程度選擇合適雪道，初學者勿嘗試高級雪道','③ 留意雪場告示牌，認識禁區及危險區域','④ 如感不適或天氣惡劣應立即停止活動，通知領隊']},
+{cat:'activities',freq:'high',q:'坐直升機觀看冰川 — 對供應商的四項監察及給團友的四項提醒',type:'問答',
+ans:['對供應商監察：① 確認供應商持有合法牌照及保險 ② 檢查飛機維修紀錄及安全認證 ③ 確認天氣符合飛行條件 ④ 確認緊急應變程序','給團友提醒：① 聆聽安全簡介，了解緊急出口 ② 繫好安全帶，不可在機艙內隨意走動 ③ 禁止攜帶超重行李 ④ 若感不適立即通知機組人員']},
+{cat:'activities',freq:'high',q:'騎駱駝活動 — 領隊的監察及關顧（各四項）',type:'問答',
+ans:['對供應商監察：① 確認駱駝狀態良好（無傷病）② 檢查鞍具是否穩固 ③ 確認操作員有足夠經驗 ④ 了解緊急處理程序','對團友關顧：① 提醒上落駱駝時的正確姿勢 ② 提醒緊握把手，保持平衡 ③ 提醒穿著適合衣物（長褲防曬）④ 提醒如感不適立即告知']},
+{cat:'activities',freq:'med',q:'出海觀鯨 — 對供應商的四項監察',type:'問答',
+ans:['① 確認船隻持有合法出海牌照及保險','② 確認船隻有足夠救生設備（救生衣、救生艇）','③ 確認天氣及海況適合出海','④ 確認船長有足夠資歷及緊急應變程序']},
+{cat:'activities',freq:'med',q:'熱帶地區防蚊及傳染病預防四項措施',type:'問答',
+ans:['① 塗抹含避蚊胺（DEET）成分的驅蚊劑','② 穿著長袖衣褲，減少暴露皮膚','③ 住宿選擇有蚊帳或冷氣房間','④ 出發前按需要接種相關疫苗（如黃熱病、瘧疾預防藥）']},
+{cat:'activities',freq:'med',q:'預防高山症的三個方法',type:'問答',
+ans:['① 緩慢上升，讓身體適應高海拔（每天上升不超過300-500米）','② 多喝水，保持身體水分','③ 如出現頭痛、頭暈等症狀，應立即停止上升或下山求醫']},
+{cat:'activities',freq:'low',q:'熱氣球活動的四項注意事項',type:'問答',
+ans:['① 確認天氣及風力符合飛行條件','② 聆聽操作員安全簡介，了解緊急著陸程序','③ 提醒團友穿著舒適衣物，避免鬆散衣物被風吹走','④ 拍照時勿伸出籃外，注意個人安全']},
+
+{cat:'hotel',freq:'high',q:'分發房間鑰匙前向旅客說明的四項事項',type:'問答',
+ans:['① 說明早餐時間及地點','② 說明緊急疏散路線及集合點','③ 提醒貴重物品存放於保險箱，勿放在房間明顯位置','④ 說明次日出發時間及大堂集合點，提醒團友需要的準備']},
+{cat:'hotel',freq:'med',q:'酒店房間有異味及漏水的危機處理（八項因素應用）',type:'案例問答',
+ans:['① 立即前往房間確認情況','② 向酒店前台反映問題，要求更換房間','③ 若無法立即更換，要求酒店提供補償（升級、免費早餐等）','④ 向旅客道歉並解釋情況，表示正積極跟進','體現危機因素：保障旅客健康（漏水安全）、快速響應、通知旅行社、記錄事件']},
+{cat:'hotel',freq:'med',q:'安排旅行團餐飲場所要點及檢查項目',type:'問答',
+ans:['選擇要點：① 衛生評級達標 ② 菜式符合團友飲食需要 ③ 位置及容量合適 ④ 價格在預算範圍內','到達後檢查：① 環境清潔及通風 ② 確認預訂菜式正確 ③ 食物溫度及新鮮度 ④ 廁所清潔','若有問題：即時向餐廳負責人反映，記錄問題，必要時更換餐廳']},
+
+{cat:'study',freq:'high',q:'遊學團的安全注意事項（四項）及確保學生安全的方法',type:'問答',
+ans:['安全事項：① 出發前收集學生健康及緊急聯絡資料 ② 訂立嚴格的點名制度 ③ 分組行動，每組設小組長 ④ 訂立緊急集合點及失散處理程序','確保安全：① 全程陪同，不讓學生單獨外出 ② 定時清點人數 ③ 與帶隊老師保持緊密溝通 ④ 緊急時立即通報學校、家長及旅行社']},
+{cat:'study',freq:'high',q:'遊學團需要向學校或家長索取的文件及資料',type:'問答',
+ans:['① 學生護照及旅遊保險副本','② 學生健康資料（藥物過敏、特殊病況、需要攜帶藥物）','③ 家長緊急聯絡電話及授權書','④ 學校出行批准文件及帶隊老師聯絡方式']},
+{cat:'study',freq:'med',q:'中學生遊學團出現火警時的四項處理',type:'案例問答',
+ans:['① 立即啟動疏散程序，帶領學生離開建築物','② 在指定集合點清點人數','③ 禁止學生返回建築物取回物品','④ 聯絡緊急服務及通報旅行社/學校/家長']},
+
+{cat:'transport',freq:'high',q:'寄艙行李的三至四項注意事項',type:'問答',
+ans:['① 確認行李重量符合航空公司規定，避免超重收費','② 在行李上貼上識別標籤（姓名、聯絡電話、目的地）','③ 提醒團友將貴重物品、藥物及重要文件帶上機艙','④ 收集行李標籤收據，方便日後追蹤或索賠']},
+{cat:'transport',freq:'high',q:'高鐵入閘前提醒團友的四項事項',type:'問答',
+ans:['① 確認所有人持有有效證件（港澳通行證/護照）','② 提醒不可攜帶禁帶物品（生鮮食品、超限液體等）','③ 確認行李符合隨身行李規格','④ 說明車廂號碼及座位，提醒出站後的集合安排']},
+{cat:'transport',freq:'high',q:'搭船碼頭入閘前告知團友的四項事項',type:'問答',
+ans:['① 確認人數及票據齊備','② 提醒攜帶有效身份證明文件','③ 說明船上安全規則（救生衣位置、禁止區域）','④ 說明到達目的地後的集合安排及注意事項']},
+{cat:'transport',freq:'med',q:'飛行途中領隊的工作',type:'問答',
+ans:['① 確認全體團友成功登機，清點人數','② 協助行動不便或有需要的團友安置行李及就座','③ 向團友說明到達後的接機及行程安排','④ 留意有否團友身體不適，需要時向機組人員求助','⑤ 準備好入境文件（入境卡等），協助有需要的團友填寫']},
+{cat:'transport',freq:'med',q:'航班延誤至少六小時的危機處理',type:'案例問答',
+ans:['① 確認延誤原因及預計起飛時間，並通知全體團友','② 按航空公司規定，協助團友申請餐飲補貼或住宿安排','③ 通知旅行社，評估對後續行程的影響及調整方案','④ 安撫團友情緒，確保其在機場內安全舒適等候']},
+{cat:'transport',freq:'low',q:'夏威夷Outlet解散前告知團友的四項事項',type:'問答',
+ans:['① 說明解散時間及返回集合點的確實時間','② 提供地圖或說明商場範圍，提醒緊急聯絡方式','③ 提醒注意個人財物安全，防範扒手','④ 提醒保留購物收據，留意海關申報規定']},
+];
+
+let currentTab='all';
+let currentSearch='';
+
+function setTab(el,key){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  currentTab=key;
+  renderCards();
+}
+function filterCards(){
+  currentSearch=document.getElementById('searchInput').value.toLowerCase();
+  renderCards();
+}
+function renderCards(){
+  const list=document.getElementById('cardList');
+  const filtered=data.filter(item=>{
+    const matchTab=currentTab==='all'||item.cat===currentTab;
+    const matchSearch=!currentSearch||item.q.toLowerCase().includes(currentSearch)||item.ans.some(a=>a.toLowerCase().includes(currentSearch));
+    return matchTab&&matchSearch;
+  });
+  if(!filtered.length){list.innerHTML='<div class="empty">沒有相關題目</div>';return;}
+  list.innerHTML=filtered.map((item,i)=>{
+    const catIdx=CAT_KEYS.indexOf(item.cat);
+    const freqMap={high:'必考',med:'常考',low:'偶考'};
+    const freqClass={high:'freq-high',med:'freq-med',low:'freq-low'};
+    const ansHtml=item.ans.map((a,j)=>`<div class="ans-item"><div class="ans-dot">${j+1}</div><div class="ans-text">${a}</div></div>`).join('');
+    const tipHtml=item.tip?`<div class="tip">💡 考試貼士：${item.tip}</div>`:'';
+    return `<div class="card" data-id="${i}">
+      <div class="card-header" onclick="toggleCard(${i})">
+        <div style="flex:1">
+          <div class="q-meta">
+            <span class="q-type">${item.type}</span>
+            <span class="cat-badge cat-${catIdx}">${CATS[catIdx]}</span>
+            <span class="freq-badge ${freqClass[item.freq]}">${freqMap[item.freq]}</span>
+          </div>
+          <div class="q-text">${item.q}</div>
+        </div>
+        <div class="chevron" id="chev-${i}">▶</div>
+      </div>
+      <div class="card-body" id="body-${i}">
+        <div class="ans-label">標準答案要點</div>
+        ${ansHtml}
+        ${tipHtml}
+      </div>
+    </div>`;
+  }).join('');
+}
+function toggleCard(i){
+  document.getElementById('body-'+i).classList.toggle('open');
+  document.getElementById('chev-'+i).classList.toggle('open');
+}
+renderCards();
+</script>
+</body>
+</html>
