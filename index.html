@@ -9,7 +9,6 @@
 body{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;background:#f5f4f0;color:#1a1a1a;min-height:100vh;padding-bottom:3rem}
 .top-bar{background:#1a1a1a;color:#fff;padding:14px 20px;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .top-bar h1{font-size:15px;font-weight:500;letter-spacing:0.3px}
-.top-bar span{font-size:11px;color:#888}
 .body{max-width:700px;margin:0 auto;padding:16px}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
 .stat{background:#fff;border-radius:10px;padding:12px 8px;text-align:center;border:1px solid #e8e6e0}
@@ -26,7 +25,9 @@ input[type=text]:focus{border-color:#888}
 .freq-high{background:#fee2e2;color:#991b1b}
 .freq-med{background:#fef3c7;color:#92400e}
 .freq-low{background:#dcfce7;color:#166534}
-.card{background:#fff;border:1px solid #e8e6e0;border-radius:12px;margin-bottom:10px;overflow:hidden}
+.card{background:#fff;border:1px solid #e8e6e0;border-radius:12px;margin-bottom:10px;overflow:hidden;transition:border-color 0.2s}
+.card.correct{border-color:#86efac}
+.card.wrong{border-color:#fca5a5}
 .card-header{padding:14px 16px;cursor:pointer;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;-webkit-tap-highlight-color:transparent}
 .card-header:active{background:#f9f8f5}
 .q-meta{display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin-bottom:5px}
@@ -51,14 +52,44 @@ input[type=text]:focus{border-color:#888}
 .ans-text{font-size:13px;color:#333;line-height:1.65}
 .tip{background:#fffbeb;border-left:3px solid #f59e0b;border-radius:0 8px 8px 0;padding:8px 12px;margin-top:10px;font-size:12px;color:#78350f;line-height:1.5}
 .empty{text-align:center;padding:3rem;color:#aaa;font-size:14px}
-.section-divider{font-size:11px;color:#aaa;padding:8px 4px 4px;letter-spacing:0.5px}
+/* Quiz mode */
+.quiz-toggle{font-size:12px;padding:6px 14px;border-radius:20px;border:1.5px solid #555;background:transparent;cursor:pointer;color:#ccc;transition:all 0.15s;white-space:nowrap;font-weight:500}
+.quiz-toggle.on{background:#f59e0b;color:#1a1a1a;border-color:#f59e0b}
+.quiz-bar{background:#fff;border:1px solid #e8e6e0;border-radius:12px;padding:14px 16px;margin-bottom:14px;display:none}
+.quiz-bar.show{display:block}
+.quiz-bar-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.quiz-bar-title{font-size:13px;font-weight:600;color:#1a1a1a}
+.quiz-counts{display:flex;gap:12px;margin-bottom:8px}
+.quiz-count{font-size:12px;color:#555}
+.quiz-count .c-yes{color:#16a34a;font-weight:700}
+.quiz-count .c-no{color:#dc2626;font-weight:700}
+.quiz-count strong{font-weight:700}
+.progress-track{background:#f0ede6;border-radius:99px;height:6px;overflow:hidden}
+.progress-fill{height:100%;border-radius:99px;background:#1a1a1a;transition:width 0.3s}
+.reset-btn{font-size:11px;color:#aaa;background:none;border:none;cursor:pointer;padding:0;text-decoration:underline}
+.quiz-card-body{padding:0 16px 14px}
+.reveal-btn{width:100%;padding:9px;border-radius:8px;border:1.5px solid #1a1a1a;background:#fff;font-size:13px;font-weight:600;color:#1a1a1a;cursor:pointer;transition:all 0.15s}
+.reveal-btn:active{background:#f5f4f0}
+.quiz-answer{display:none;border-top:1px solid #f0ede6;padding-top:12px;margin-top:0}
+.quiz-answer.show{display:block}
+.quiz-actions{display:none;gap:8px;margin-top:10px}
+.quiz-actions.show{display:flex}
+.quiz-btn{flex:1;padding:10px;border-radius:8px;border:none;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.15s}
+.quiz-btn-yes{background:#dcfce7;color:#15803d}
+.quiz-btn-yes:active{background:#bbf7d0}
+.quiz-btn-no{background:#fee2e2;color:#b91c1c}
+.quiz-btn-no:active{background:#fecaca}
+.quiz-result-badge{font-size:11px;padding:2px 8px;border-radius:8px;margin-left:6px}
+.quiz-result-badge.yes{background:#dcfce7;color:#15803d}
+.quiz-result-badge.no{background:#fee2e2;color:#b91c1c}
+.result-msg{font-size:13px;padding:6px 0}
 </style>
 </head>
 <body>
 
 <div class="top-bar">
   <h1>領隊領牌考試 溫習指南</h1>
-  <span>歷屆題目整合</span>
+  <button class="quiz-toggle" id="quizToggle" onclick="toggleQuiz()">練習模式</button>
 </div>
 
 <div class="body">
@@ -67,6 +98,19 @@ input[type=text]:focus{border-color:#888}
     <div class="stat"><div class="stat-n">8</div><div class="stat-l">分類</div></div>
     <div class="stat"><div class="stat-n" style="font-size:13px;padding-top:3px">必背</div><div class="stat-l">危機處理八項</div></div>
     <div class="stat"><div class="stat-n" style="font-size:13px;padding-top:3px">MC+問答</div><div class="stat-l">題型</div></div>
+  </div>
+
+  <div class="quiz-bar" id="quizBar">
+    <div class="quiz-bar-top">
+      <div class="quiz-bar-title">練習進度</div>
+      <button class="reset-btn" onclick="resetQuiz()">重置進度</button>
+    </div>
+    <div class="quiz-counts">
+      <div class="quiz-count">已答：<strong id="qDone">0</strong> / <strong id="qTotal">0</strong></div>
+      <div class="quiz-count">答到：<span class="c-yes" id="qYes">0</span></div>
+      <div class="quiz-count">答唔到：<span class="c-no" id="qNo">0</span></div>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
   </div>
 
   <div class="search-wrap">
@@ -220,55 +264,150 @@ ans:['① 說明解散時間及返回集合點的確實時間','② 提供地圖
 
 let currentTab='all';
 let currentSearch='';
+let quizMode=false;
+let quizProgress=JSON.parse(localStorage.getItem('quizProgress')||'{}');
+
+function getFiltered(){
+  return data.filter(item=>{
+    const matchTab=currentTab==='all'||item.cat===currentTab;
+    const matchSearch=!currentSearch||item.q.toLowerCase().includes(currentSearch)||item.ans.some(a=>a.toLowerCase().includes(currentSearch));
+    return matchTab&&matchSearch;
+  });
+}
+
+function toggleQuiz(){
+  quizMode=!quizMode;
+  const btn=document.getElementById('quizToggle');
+  const bar=document.getElementById('quizBar');
+  btn.classList.toggle('on',quizMode);
+  btn.textContent=quizMode?'返回溫習':'練習模式';
+  bar.classList.toggle('show',quizMode);
+  renderCards();
+  if(quizMode) updateQuizStats();
+}
+
+function updateQuizStats(){
+  const filtered=getFiltered();
+  const total=filtered.length;
+  const done=filtered.filter(item=>quizProgress[item.q]!==undefined).length;
+  const yes=filtered.filter(item=>quizProgress[item.q]===true).length;
+  const no=filtered.filter(item=>quizProgress[item.q]===false).length;
+  document.getElementById('qTotal').textContent=total;
+  document.getElementById('qDone').textContent=done;
+  document.getElementById('qYes').textContent=yes;
+  document.getElementById('qNo').textContent=no;
+  document.getElementById('progressFill').style.width=(total?Math.round(done/total*100):0)+'%';
+}
+
+function resetQuiz(){
+  if(!confirm('確定重置所有練習進度？')) return;
+  quizProgress={};
+  localStorage.removeItem('quizProgress');
+  renderCards();
+  updateQuizStats();
+}
+
+function revealAnswer(idx){
+  document.getElementById('ans-'+idx).classList.add('show');
+  document.getElementById('reveal-'+idx).style.display='none';
+  document.getElementById('actions-'+idx).classList.add('show');
+}
+
+function markCard(idx,correct){
+  const key=data[idx].q;
+  quizProgress[key]=correct;
+  localStorage.setItem('quizProgress',JSON.stringify(quizProgress));
+  const card=document.querySelector('[data-id="'+idx+'"]');
+  if(card){card.classList.remove('correct','wrong');card.classList.add(correct?'correct':'wrong');}
+  const actions=document.getElementById('actions-'+idx);
+  if(actions) actions.innerHTML='<div class="result-msg" style="color:'+(correct?'#15803d':'#b91c1c')+'">'+(correct?'✅ 已記錄：答到':'❌ 已記錄：答唔到')+'</div>';
+  updateQuizStats();
+}
 
 function setTab(el,key){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
   currentTab=key;
   renderCards();
+  if(quizMode) updateQuizStats();
 }
+
 function filterCards(){
   currentSearch=document.getElementById('searchInput').value.toLowerCase();
   renderCards();
+  if(quizMode) updateQuizStats();
 }
+
 function renderCards(){
   const list=document.getElementById('cardList');
-  const filtered=data.filter(item=>{
-    const matchTab=currentTab==='all'||item.cat===currentTab;
-    const matchSearch=!currentSearch||item.q.toLowerCase().includes(currentSearch)||item.ans.some(a=>a.toLowerCase().includes(currentSearch));
-    return matchTab&&matchSearch;
-  });
+  const filtered=getFiltered();
   if(!filtered.length){list.innerHTML='<div class="empty">沒有相關題目</div>';return;}
-  list.innerHTML=filtered.map((item,i)=>{
+  const freqMap={high:'必考',med:'常考',low:'偶考'};
+  const freqClass={high:'freq-high',med:'freq-med',low:'freq-low'};
+
+  list.innerHTML=filtered.map(item=>{
+    const i=data.indexOf(item);
     const catIdx=CAT_KEYS.indexOf(item.cat);
-    const freqMap={high:'必考',med:'常考',low:'偶考'};
-    const freqClass={high:'freq-high',med:'freq-med',low:'freq-low'};
     const ansHtml=item.ans.map((a,j)=>`<div class="ans-item"><div class="ans-dot">${j+1}</div><div class="ans-text">${a}</div></div>`).join('');
     const tipHtml=item.tip?`<div class="tip">💡 考試貼士：${item.tip}</div>`:'';
-    return `<div class="card" data-id="${i}">
-      <div class="card-header" onclick="toggleCard(${i})">
-        <div style="flex:1">
-          <div class="q-meta">
-            <span class="q-type">${item.type}</span>
-            <span class="cat-badge cat-${catIdx}">${CATS[catIdx]}</span>
-            <span class="freq-badge ${freqClass[item.freq]}">${freqMap[item.freq]}</span>
+    const prog=quizProgress[item.q];
+
+    if(quizMode){
+      const cardCls='card'+(prog===true?' correct':prog===false?' wrong':'');
+      const resultBadge=prog!==undefined?`<span class="quiz-result-badge ${prog?'yes':'no'}">${prog?'✅ 答到':'❌ 答唔到'}</span>`:'';
+      const actionsHtml=prog!==undefined
+        ?`<div class="result-msg" style="color:${prog?'#15803d':'#b91c1c'}">${prog?'✅ 已記錄：答到':'❌ 已記錄：答唔到'}</div>`
+        :`<button class="quiz-btn quiz-btn-yes" onclick="markCard(${i},true)">✅ 答到</button><button class="quiz-btn quiz-btn-no" onclick="markCard(${i},false)">❌ 答唔到</button>`;
+      return `<div class="${cardCls}" data-id="${i}">
+        <div class="card-header" style="cursor:default">
+          <div style="flex:1">
+            <div class="q-meta">
+              <span class="q-type">${item.type}</span>
+              <span class="cat-badge cat-${catIdx}">${CATS[catIdx]}</span>
+              <span class="freq-badge ${freqClass[item.freq]}">${freqMap[item.freq]}</span>
+              ${resultBadge}
+            </div>
+            <div class="q-text">${item.q}</div>
           </div>
-          <div class="q-text">${item.q}</div>
         </div>
-        <div class="chevron" id="chev-${i}">▶</div>
-      </div>
-      <div class="card-body" id="body-${i}">
-        <div class="ans-label">標準答案要點</div>
-        ${ansHtml}
-        ${tipHtml}
-      </div>
-    </div>`;
+        <div class="quiz-card-body">
+          ${prog===undefined?`<button class="reveal-btn" id="reveal-${i}" onclick="revealAnswer(${i})">睇答案</button>`:''}
+          <div class="quiz-answer ${prog!==undefined?'show':''}" id="ans-${i}">
+            <div class="ans-label">標準答案要點</div>
+            ${ansHtml}${tipHtml}
+          </div>
+          <div class="quiz-actions ${prog!==undefined?'show':''}" id="actions-${i}">
+            ${actionsHtml}
+          </div>
+        </div>
+      </div>`;
+    } else {
+      return `<div class="card" data-id="${i}">
+        <div class="card-header" onclick="toggleCard(${i})">
+          <div style="flex:1">
+            <div class="q-meta">
+              <span class="q-type">${item.type}</span>
+              <span class="cat-badge cat-${catIdx}">${CATS[catIdx]}</span>
+              <span class="freq-badge ${freqClass[item.freq]}">${freqMap[item.freq]}</span>
+            </div>
+            <div class="q-text">${item.q}</div>
+          </div>
+          <div class="chevron" id="chev-${i}">▶</div>
+        </div>
+        <div class="card-body" id="body-${i}">
+          <div class="ans-label">標準答案要點</div>
+          ${ansHtml}${tipHtml}
+        </div>
+      </div>`;
+    }
   }).join('');
 }
+
 function toggleCard(i){
   document.getElementById('body-'+i).classList.toggle('open');
   document.getElementById('chev-'+i).classList.toggle('open');
 }
+
 renderCards();
 </script>
 </body>
