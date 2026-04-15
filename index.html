@@ -68,11 +68,22 @@ input[type=text]:focus{border-color:#888}
 .progress-fill{height:100%;border-radius:99px;background:#1a1a1a;transition:width 0.3s}
 .reset-btn{font-size:11px;color:#aaa;background:none;border:none;cursor:pointer;padding:0;text-decoration:underline}
 .quiz-card-body{padding:0 16px 14px}
-.reveal-btn{width:100%;padding:9px;border-radius:8px;border:1.5px solid #1a1a1a;background:#fff;font-size:13px;font-weight:600;color:#1a1a1a;cursor:pointer;transition:all 0.15s}
-.reveal-btn:active{background:#f5f4f0}
-.quiz-answer{display:none;border-top:1px solid #f0ede6;padding-top:12px;margin-top:0}
-.quiz-answer.show{display:block}
-.quiz-actions{display:none;gap:8px;margin-top:10px}
+.quiz-textarea{width:100%;min-height:90px;padding:10px 12px;border-radius:8px;border:1.5px solid #e0ded8;background:#fafaf8;font-size:13px;color:#1a1a1a;line-height:1.6;resize:vertical;outline:none;font-family:inherit}
+.quiz-textarea:focus{border-color:#888}
+.submit-btn{margin-top:8px;width:100%;padding:9px;border-radius:8px;border:none;background:#1a1a1a;font-size:13px;font-weight:600;color:#fff;cursor:pointer;transition:all 0.15s}
+.submit-btn:active{background:#333}
+.compare-wrap{display:none;margin-top:12px;border-top:1px solid #f0ede6;padding-top:12px}
+.compare-wrap.show{display:block}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+@media(max-width:500px){.compare-grid{grid-template-columns:1fr}}
+.compare-box{border-radius:8px;padding:10px 12px}
+.compare-box-my{background:#f0f9ff;border:1px solid #bae6fd}
+.compare-box-std{background:#f0fdf4;border:1px solid #bbf7d0}
+.compare-label{font-size:10px;font-weight:700;letter-spacing:0.6px;margin-bottom:6px;text-transform:uppercase}
+.compare-label-my{color:#0369a1}
+.compare-label-std{color:#15803d}
+.compare-my-text{font-size:13px;color:#1a1a1a;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.quiz-actions{display:none;gap:8px;margin-top:4px}
 .quiz-actions.show{display:flex}
 .quiz-btn{flex:1;padding:10px;border-radius:8px;border:none;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.15s}
 .quiz-btn-yes{background:#dcfce7;color:#15803d}
@@ -307,9 +318,13 @@ function resetQuiz(){
   updateQuizStats();
 }
 
-function revealAnswer(idx){
-  document.getElementById('ans-'+idx).classList.add('show');
-  document.getElementById('reveal-'+idx).style.display='none';
+function submitAnswer(idx){
+  const ta=document.getElementById('ta-'+idx);
+  const myText=ta.value.trim();
+  // Show compare section
+  document.getElementById('my-ans-'+idx).textContent=myText||'（未有作答）';
+  document.getElementById('compare-'+idx).classList.add('show');
+  document.getElementById('submit-wrap-'+idx).style.display='none';
   document.getElementById('actions-'+idx).classList.add('show');
 }
 
@@ -371,10 +386,21 @@ function renderCards(){
           </div>
         </div>
         <div class="quiz-card-body">
-          ${prog===undefined?`<button class="reveal-btn" id="reveal-${i}" onclick="revealAnswer(${i})">睇答案</button>`:''}
-          <div class="quiz-answer ${prog!==undefined?'show':''}" id="ans-${i}">
-            <div class="ans-label">標準答案要點</div>
-            ${ansHtml}${tipHtml}
+          <div id="submit-wrap-${i}" ${prog!==undefined?'style="display:none"':''}>
+            <textarea class="quiz-textarea" id="ta-${i}" placeholder="喺度輸入你嘅答案..."></textarea>
+            <button class="submit-btn" onclick="submitAnswer(${i})">提交答案</button>
+          </div>
+          <div class="compare-wrap ${prog!==undefined?'show':''}" id="compare-${i}">
+            <div class="compare-grid">
+              <div class="compare-box compare-box-my">
+                <div class="compare-label compare-label-my">我的答案</div>
+                <div class="compare-my-text" id="my-ans-${i}">${prog!==undefined?'（已完成）':''}</div>
+              </div>
+              <div class="compare-box compare-box-std">
+                <div class="compare-label compare-label-std">標準答案</div>
+                ${ansHtml}${tipHtml}
+              </div>
+            </div>
           </div>
           <div class="quiz-actions ${prog!==undefined?'show':''}" id="actions-${i}">
             ${actionsHtml}
